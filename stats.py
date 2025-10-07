@@ -1,18 +1,8 @@
-def get_book_text(filepath):
-    with open(filepath) as f:
-        text = f.read()
-        text = text.split()
-        for i in range(0, len(text)):
-            text[i] = text[i].lower()
-        return text
-    
-def get_word_count(filepath):
-    words = get_book_text(filepath)
-    num_words = len(words)
+def get_word_count(text):
+    num_words = len(text)
     print(f"Found {num_words} total words")
 
-def get_character_count(filepath):
-    words = get_book_text(filepath)
+def get_character_count(words):
     character_count = {}
     for word in words:
         letters = list(word)
@@ -23,4 +13,18 @@ def get_character_count(filepath):
         letters = list(word)
         for letter in word:
             character_count[letter] += 1
-    print(character_count)
+    character_count = sort_on(character_count)
+    return character_count
+
+def sort_on(input_dict):
+    temp_list = []
+    for latter in input_dict:
+        number = input_dict[latter]
+        temp = {"char": latter, "num": number}
+        temp_list.append(temp)
+    final = sorted(temp_list, key=lambda x: x["num"], reverse=True)
+
+    return final
+
+
+
